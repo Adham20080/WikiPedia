@@ -13,7 +13,8 @@ dp = Dispatcher()
 
 @dp.message(Command("start"))
 async def start(message: Message):
-    await message.answer("Asslomu aleykum\nMen sizga wikipedia saytidan ma'lumot olib beruvchi botman.")
+    await message.answer(
+        f"Asslomu aleykum\n{message.from_user.full_name}\nMen sizga wikipedia saytidan ma'lumot olib beruvchi botman.")
 
 
 @dp.message(Command("help"))
@@ -24,9 +25,8 @@ async def help_command(message: Message):
 @dp.message()
 async def wiki(message: Message):
     try:
-        respond = wikipedia.summary(message.text)
-        await message.reply(f"<pre>{respond}</pre>", parse_mode="HTML")
-    except TypeError:
+        await message.reply(f"<pre>{wikipedia.summary(message.text)}</pre>", parse_mode="HTML")
+    except:
         await message.reply("Siz qidirgan mavzu topilmadi,\nQaytadan urunib ko'ring")
 
 
